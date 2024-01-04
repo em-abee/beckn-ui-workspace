@@ -23,6 +23,8 @@ enum StoreType {
   restaurant = 'restaurant'
 }
 
+console.log('Dank 8')
+
 type Coords = {
   lat: number
   long: number
