@@ -11,28 +11,7 @@ import BecknButton from '@beckn-ui/molecules/src/components/button/Button'
 import BottomModalScan from '@components/BottomModal/BottomModalScan'
 import { ConfirmResponseModel } from '../types/confirm.types'
 import LoaderWithMessage from '@components/loader/LoaderWithMessage'
-
-interface UIState {
-  isProceedDisabled: boolean
-  isLoading: boolean
-  isLoadingForTrackAndSupport: boolean
-  isMenuModalOpen: boolean
-  isCancelMenuModalOpen: boolean
-  isLoadingForCancel: boolean
-}
-
-interface DataState {
-  confirmData: ConfirmResponseModel[] | null
-  statusData: StatusResponseModel[]
-  trackUrl: string | null
-  supportData: SupportModel | null
-}
-
-interface ProcessState {
-  apiCalled: boolean
-  allOrderDelivered: boolean
-  radioValue: string
-}
+import { UIState, DataState, ProcessState } from '../types/order-details.types'
 
 const OrderDetails = () => {
   const [uiState, setUiState] = useState<UIState>({
