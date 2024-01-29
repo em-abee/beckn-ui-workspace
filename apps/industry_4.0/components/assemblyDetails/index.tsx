@@ -1,8 +1,7 @@
-import { Button } from '@beckn-ui/molecules'
-import { ChakraProvider, FormControl, FormLabel, Input, extendTheme, Box, Select, Flex } from '@chakra-ui/react'
+import { extendTheme, Box } from '@chakra-ui/react'
 import axios from 'axios'
-import Router, { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import React, { useEffect } from 'react'
 import styles from './assembly-details.module.css'
 
 const activeLabelStyles = {
@@ -61,9 +60,24 @@ const AssemblyDetails: React.FC<AssemblyDetailsProps> = props => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault()
+    const formData = new FormData(event.target)
+    const formValues = {
+      type: formData.get('type'),
+      color: formData.get('color'),
+      shape: formData.get('shape'),
+      length: formData.get('length'),
+      width: formData.get('width'),
+      quantity: formData.get('quantity'),
+      weight: formData.get('weight')
+    }
+
+    localStorage.setItem('orderQuantity', formValues.quantity as string)
 
     axios
-      .post(`${apiUrl}/x-input/submit`)
+      .post(`${apiUrl}/x-input/submit`, {
+        action: 'https://sandbox-bpp-api.becknprotocol.io/industry-4.0/formsubmit',
+        method: 'post'
+      })
       .then(res => {
         console.log(res)
         router.push('/checkoutPage')

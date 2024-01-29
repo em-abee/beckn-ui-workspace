@@ -7,7 +7,7 @@ import DetailsCard from '@beckn-ui/becknified-components/src/components/checkout
 import ShippingSection from '@beckn-ui/becknified-components/src/components/checkout/shipping-section'
 import PaymentDetails from '@beckn-ui/becknified-components/src/components/checkout/payment-details'
 import BecknButton from '@beckn-ui/molecules/src/components/button/Button'
-import { AssemblyData, ParsedItemModel } from '../types/search.types'
+import { ParsedItemModel } from '../types/search.types'
 import { getPayloadForInitRequest, getPayloadForSelectRequest, getPaymentBreakDown } from '@utils/checkout-utils'
 import axios from 'axios'
 import { SelectResponseModel } from '../types/select.types'
@@ -24,8 +24,8 @@ const CheckoutPage = () => {
   const [initData, setInitData] = useState<InitResponseModel[]>([])
   const [showShippingDetails, setShowShippingDetails] = useState(false)
   const [showBillingDetails, setShowBillingDetails] = useState(false)
-  const [error, setError] = useState('')
-  const [assemblyDetails, setAssemblyDetails] = useState<AssemblyData>(null)
+  const [error, setError] = useState<string>('')
+  const [orderQty, setOrderQty] = useState<string>('')
   const [detailsForm, setdetailsForm] = useState<ShippingFormInitialValuesType>({
     name: 'Antoine Dubois',
     mobileNumber: '0612345678',
@@ -60,9 +60,9 @@ const CheckoutPage = () => {
   }, [])
 
   useEffect(() => {
-    if (localStorage && localStorage.getItem('assemblyDetails')) {
-      const parsedAssemblyDetails = JSON.parse(localStorage.getItem('assemblyDetails') as string)
-      setAssemblyDetails(parsedAssemblyDetails)
+    if (localStorage && localStorage.getItem('orderQuantity')) {
+      const orderQuantity = localStorage.getItem('orderQuantity') as string
+      setOrderQty(orderQuantity)
     }
   }, [])
 
@@ -155,7 +155,7 @@ const CheckoutPage = () => {
           <Box pb={'4px'}>
             <Typography
               variant="subTitleRegular"
-              text={`Qty: ${assemblyDetails.quantity}`}
+              text={`Qty: ${orderQty}`}
             />
           </Box>
         </DetailsCard>
